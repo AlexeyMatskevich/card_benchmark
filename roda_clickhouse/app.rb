@@ -61,7 +61,8 @@ class App < Roda
 
         r.on 'cards' do
           r.post 'buy' do
-            @user.add_debit_card(color: typecast_params.color!("color"), count: typecast_params.pos_int!("count"))
+            data = [user_id, typecast_params.color!("color"), typecast_params.pos_int!("count")]
+            ClickHouse.connection.insert('debit', columns: %i[user_id color count], values: [data])
 
             { success: 'Cards bought' }
           end

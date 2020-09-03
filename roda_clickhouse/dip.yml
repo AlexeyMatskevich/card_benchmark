@@ -71,11 +71,15 @@ interaction:
     command: bundle exec standardrb
     compose_run_options: [no-deps]
 
-  mysql:
+  pg_dump:
+    description: Run pg_dump postgresql command
+    service: academic
+    command: pg_dump -h database -U postgres
+
+  psql:
     description: Run Postgres psql console
     service: app
-    command: mysql --protocol tcp -u default -h database -P 9004
-#    command: psql -h database -U postgres
+    command: psql -h database -U postgres
 
 provision:
   - dip down --volumes

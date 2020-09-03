@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
-class User < Sequel::Model
-  one_to_many :credit_cards
-  one_to_many :debit_cards
+require_relative '../clickhouse'
 
+class User < Sequel::Model
   MAX_CREDIT = 0
 
   def use_card(color)
-    debit = debit_cards_dataset.where(color: color).sum(:count) || 0
-    credit = credit_cards_dataset.where(color: color).count || 0
+    debit = ClickHouse.connection.select_value(<<-SQL
+      SELECT sum("count") AS "sum" FROM "debit" WHERE (("debit"."user_id" = #{id}) AND ("color" = 'red'))
+    SQL
+    )
+
+    credit = ClickHouse.connection.select_value(<<-SQL
+      SELECT count(*) AS "count" FROM "credit" WHERE (("credit"."user_id" = #{id}) AND ("color" = 'red'))
+    SQL
+    )
 
     if debit - credit > MAX_CREDIT
-      add_credit_card(color: color)
+      ClickHouse.connection.insert('credit', columns: %i[user_id color], values: [[id, color]])
     else
       false
     end

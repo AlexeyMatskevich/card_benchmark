@@ -19,4 +19,6 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Setup database =="
   system! 'RACK_ENV=production rake db:setup'
+  system! 'RACK_ENV=production rake clickhouse:create'
+  system! 'RACK_ENV=production rake clickhouse:migrate'
 end

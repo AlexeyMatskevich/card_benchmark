@@ -4,18 +4,5 @@ Sequel.migration do
       primary_key :id
       String :name, null: false
     end
-
-    create_table(:debit_cards) do
-      primary_key :id
-      foreign_key(:user_id, :users)
-      String :color, null: false
-      Integer :count, null: false
-    end
-
-    create_table(:credit_cards) do
-      primary_key :id
-      foreign_key(:user_id, :users)
-      String :color, null: false
-    end
   end
 end

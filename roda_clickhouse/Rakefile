@@ -3,6 +3,7 @@
 require 'bundler/setup'
 require 'sequel_tools'
 require_relative 'database'
+require_relative 'clickhouse'
 
 base_config = SequelTools.base_config(
   project_root: File.expand_path(__dir__),
@@ -35,5 +36,33 @@ namespace 'db' do
       end
     MIGRATIONS_TEMPLATE_END
     puts "The new seed file was created under #{filename.inspect}"
+  end
+end
+
+namespace 'clickhouse' do
+  desc 'Create database'
+  task :create do
+    ClickHouse.connection.create_database(DB_NAME, if_not_exists: true, engine: nil, cluster: nil)
+  end
+
+  desc 'Drop database'
+  task :drop do
+    ClickHouse.connection.drop_database(DB_NAME, if_exists: true, cluster: nil)
+  end
+
+  desc 'Migrate'
+  task :migrate do
+    ClickHouse.connection.create_table('debit', if_not_exists: true, engine: 'MergeTree(date, (user_id, color), 8192)') do |t|
+      t.UInt32 :user_id
+      t.String :color
+      t.UInt16 :count
+      t.Date :date
+    end
+
+    ClickHouse.connection.create_table('credit', if_not_exists: true, engine: 'MergeTree(date, (user_id, color), 8192)') do |t|
+      t.UInt32 :user_id
+      t.String :color
+      t.Date :date
+    end
   end
 end
