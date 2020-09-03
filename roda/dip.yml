@@ -1,0 +1,87 @@
+version: '4.1'
+
+compose:
+  files:
+    - docker-compose.yml
+
+interaction:
+  bash:
+    description: Open the Bash shell in app's container
+    service: app
+    command: sh
+    compose:
+      run_options: [no-deps]
+
+  ruby:
+    description: Run ruby
+    service: app
+    command: ruby
+
+  rspec:
+    service: app
+    command: rspec
+    environment:
+      RACK_ENV: test
+    subcommands:
+      s:
+        service: rspec
+        compose_run_options: [service-ports]
+
+  bundle:
+    description: Run Bundler commands
+    service: app
+    command: bundle
+
+  rackup:
+    description: Run aplication
+    service: app
+    command: rackup -o 0.0.0.0
+    subcommands:
+      s:
+        description: Run server at http://localhost:3000
+        service: app
+        compose:
+          run_options: [service-ports, use-aliases]
+
+  rake:
+    description: Run rake
+    service: app
+    command: rake
+
+  rubycritic:
+    description: Run rubycritic
+    service: app
+    command: rubycritic
+
+  fasterer:
+    description: Run fasterer linter
+    service: app
+    command: fasterer
+
+  crystalball:
+    description: Run crystalball regression rspec
+    service: app
+    environment:
+      RAILS_ENV: test
+    command: crystalball
+
+  standardrb:
+    description: Run standardrb linter
+    service: app
+    command: bundle exec standardrb
+    compose_run_options: [no-deps]
+
+  pg_dump:
+    description: Run pg_dump postgresql command
+    service: academic
+    command: pg_dump -h database -U postgres
+
+  psql:
+    description: Run Postgres psql console
+    service: app
+    command: psql -h database -U postgres
+
+provision:
+  - dip down --volumes
+  - dip compose up -d database
+  - dip bash -c bin/setup
