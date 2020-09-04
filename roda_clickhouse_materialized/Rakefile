@@ -64,5 +64,31 @@ namespace 'clickhouse' do
       t.String :color
       t.Date :date
     end
+
+    ClickHouse.connection.execute <<~SQL
+      CREATE MATERIALIZED VIEW IF NOT EXISTS materialized_debit
+      ENGINE = SummingMergeTree
+      ORDER BY (user_id, color)
+      POPULATE
+      AS SELECT
+            user_id,
+            color,
+            sum(count) as count
+        FROM debit
+        GROUP BY user_id, color
+    SQL
+
+    ClickHouse.connection.execute <<~SQL
+      CREATE MATERIALIZED VIEW IF NOT EXISTS materialized_credit
+      ENGINE = SummingMergeTree
+      ORDER BY (user_id, color)
+      POPULATE
+      AS SELECT
+            user_id,
+            color,
+            count() as count
+        FROM credit
+        GROUP BY user_id, color
+    SQL
   end
 end

@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'rack-unreloader'
+gem 'refrigerator', '>= 1'
+gem 'roda', '>= 3.19'
+gem 'sequel', '>= 5'
+gem 'sequel_pg', '>= 1.8'
+
+group :development do
+  gem 'sequel-annotate'
+end
+
+gem "sequel_tools", ">= 0.1.7"
+
+gem "puma", "~> 4.3"
+
+gem "click_house", ">= 1.2"

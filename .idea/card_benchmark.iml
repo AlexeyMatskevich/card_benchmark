@@ -9,28 +9,23 @@
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
-    <orderEntry type="jdk" jdkName="rbenv: 2.7.1" jdkType="RUBY_SDK" />
+    <orderEntry type="jdk" jdkName="Remote: ruby-2.7.1-p83 (6)" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="backports (v3.18.2, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.15.0, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="mustermann (v1.1.1, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.2, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="oj (v3.10.13, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v1.2.3, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="puma (v4.3.5, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rack (v2.2.3, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rack-protection (v2.0.8.1, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rack-unreloader (v1.7.0, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="refrigerator (v1.2.0, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="roda (v3.35.0, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="ruby2_keywords (v0.0.2, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sequel (v5.36.0, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sequel-annotate (v1.5.0, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sequel_pg (v1.13.0, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sequel_tools (v0.1.7, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sinatra (v2.0.8.1, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sinatra-contrib (v2.0.8.1, rbenv: 2.7.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="tilt (v2.0.10, rbenv: 2.7.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="click_house (v1.2.7, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday (v1.0.1, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday_middleware (v1.0.0, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="multipart-post (v2.1.1, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.2, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pg (v1.2.3, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="puma (v4.3.5, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack (v2.2.3, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-unreloader (v1.7.0, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="refrigerator (v1.2.0, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="roda (v3.35.0, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sequel (v5.36.0, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sequel-annotate (v1.5.0, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sequel_pg (v1.13.0, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sequel_tools (v0.1.7, Remote: ruby-2.7.1-p83 (6)) [gem]" level="application" />
   </component>
 </module>
