@@ -28,7 +28,7 @@ class App < Roda
     csp.frame_ancestors :none
   end
 
-  plugin :json_parser
+  plugin :json_parser, parser: Oj.method(:load)
   plugin :json
 
   logger = if ENV['RACK_ENV'] == 'test'
