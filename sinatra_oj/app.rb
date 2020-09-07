@@ -4,6 +4,7 @@ require_relative 'models'
 
 require 'sinatra/base'
 require 'sinatra/json'
+require 'oj'
 
 class App < Sinatra::Base
   set :server, :puma
