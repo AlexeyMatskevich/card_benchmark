@@ -1,0 +1,2 @@
+bench_cases/loadtest/target
+bench_cases/loadtest/*.log
