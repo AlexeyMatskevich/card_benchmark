@@ -11,7 +11,7 @@ class User < Sequel::Model
     credit = credit_cards_dataset.where(color: color).count || 0
 
     if debit - credit > MAX_CREDIT
-      add_credit_card(color: color)
+      insert_conflict.add_credit_card(color: color)
     else
       false
     end
