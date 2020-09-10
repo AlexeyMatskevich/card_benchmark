@@ -55,10 +55,6 @@ class App < Roda
   route do |r|
     r.on 'users' do
       r.on Integer do |user_id|
-        @user = User[user_id]
-
-        next { error: 'User not found' } unless @user
-
         r.on 'cards' do
           r.post 'buy' do
             data = [user_id, typecast_params.color!("color"), typecast_params.pos_int!("count")]
@@ -68,7 +64,24 @@ class App < Roda
           end
 
           r.post 'use' do
-            if @user.use_card(typecast_params.color!("color"))
+            color = typecast_params.color!("color")
+            debit = ClickHouse.connection.select_value(<<-SQL
+              SELECT sum(count) FROM materialized_debit WHERE ((user_id = #{user_id}) AND (color = '#{color}')) GROUP BY (user_id, color)
+            SQL
+            ) || 0
+
+            credit = ClickHouse.connection.select_value(<<-SQL
+              SELECT sum(count) FROM materialized_credit WHERE ((user_id = #{user_id}) AND (color = '#{color}')) GROUP BY (user_id, color)
+            SQL
+            ) || 0
+
+            result = if debit - credit > 0
+              ClickHouse.connection.insert('credit', columns: %i[user_id color], values: [[user_id, color]])
+            else
+              false
+            end
+
+            if result
               { success: 'Card used' }
             else
               { unsuccess: 'The cards are over.' }

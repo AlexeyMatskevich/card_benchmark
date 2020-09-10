@@ -24,7 +24,7 @@ services:
       dockerfile: ../Dockerfile
     stdin_open: true
     tty: true
-    command: bundle exec rackup -o 0.0.0.0 -p 3000 -s Puma
+    command: bundle exec puma -w 4 -b tcp://0.0.0.0:3000 -e production
     depends_on:
       - database
       - clickhouse
@@ -36,6 +36,7 @@ services:
     environment:
       - RACK_ENV=${RACK_ENV:-development}
       - DATABASE_URL=postgres://postgres:Gima99295@database:5432
+      - PGPASSWORD=Gima99295
       - CLICKHOUSE_URL=http://clickhouse:8123
 
 volumes:

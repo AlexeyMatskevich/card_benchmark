@@ -55,19 +55,30 @@ class App < Roda
   route do |r|
     r.on 'users' do
       r.on Integer do |user_id|
-        @user = User[user_id]
-
         next { error: 'User not found' } unless @user
 
         r.on 'cards' do
           r.post 'buy' do
-            @user.add_debit_card(color: typecast_params.color!("color"), count: typecast_params.pos_int!("count"))
+            DB[:debit_cards].insert(user_id: user_id, count: typecast_params.pos_int!("count"), color: typecast_params.color!("color"))
 
             { success: 'Cards bought' }
           end
 
           r.post 'use' do
-            if @user.use_card(typecast_params.color!("color"))
+            result, color = nil, typecast_params.color!("color")
+            debit = DB[:debit_cards].where(color: color).sum(:count) || 0
+
+            DB.transaction(isolation: :repeatable) do
+              credit = DB[:credit_cards].where(user_id: user_id, color: color).count || 0
+
+              result = if debit - credit > 0
+                DB[:credit_cards].insert(user_id: user_id, color: color)
+              else
+                false
+              end
+            end
+
+            if result
               { success: 'Card used' }
             else
               { unsuccess: 'The cards are over.' }

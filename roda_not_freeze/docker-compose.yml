@@ -26,6 +26,7 @@ services:
     environment:
       - RACK_ENV=${RACK_ENV:-development}
       - DATABASE_URL=postgres://postgres:Gima99295@database:5432
+      - PGPASSWORD=Gima99295
 
 volumes:
   bundle:

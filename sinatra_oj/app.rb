@@ -11,20 +11,30 @@ class App < Sinatra::Base
   set :json_encoder, Oj
 
   post '/users/:id/cards/buy' do
-    @user = User[params['id']]
+    DB[:debit_cards].insert(user_id: params['id'], count: json_body['count'], color: json_body['color'])
 
-    next json({ error: 'User not found' }) unless @user
-
-    @user.add_debit_card(color: json_body['color'], count: json_body['count'])
     json({ success: 'Cards bought' })
   end
 
   post '/users/:id/cards/use' do
-    @user = User[params['id']]
+    result, color = nil, json_body['color']
+    debit = DB[:debit_cards].where(user_id: params['id'], color: color).sum(:count) || 0
 
-    next json({ error: 'User not found' }) unless @user
+    DB.transaction(isolation: :repeatable) do
+      credit = DB[:credit_cards].where(user_id: params['id'], color: color).count || 0
 
-    if @user.use_card(json_body['color'])
+      result = if debit - credit > 0
+        begin
+          DB[:credit_cards].insert(user_id: params['id'], color: color)
+        rescue Sequel::DatabaseError => e
+          DB.rollback_on_exit
+        end
+      else
+        false
+      end
+    end
+
+    if result
       json({ success: 'Card used' })
     else
       json({ unsuccess: 'The cards are over.' })

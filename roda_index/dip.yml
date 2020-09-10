@@ -84,5 +84,4 @@ interaction:
 provision:
   - dip down --volumes
   - dip compose up -d database
-  - dip compose up -d clickhouse
   - dip bash -c bin/setup
