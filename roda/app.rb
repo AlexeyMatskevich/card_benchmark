@@ -55,8 +55,6 @@ class App < Roda
   route do |r|
     r.on 'users' do
       r.on Integer do |user_id|
-        next { error: 'User not found' } unless @user
-
         r.on 'cards' do
           r.post 'buy' do
             DB[:debit_cards].insert(user_id: user_id, count: typecast_params.pos_int!("count"), color: typecast_params.color!("color"))
